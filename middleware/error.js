@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
     error.message = err.message
 
     if (err.name === 'CastError') {
-        const message = `Nothing was found with id if ${err.value}`
+        const message = `Nothing was found with id of ${err.value}`
         error = new ErrorResponse(message, 404)
     }
 
@@ -23,7 +23,6 @@ const errorHandler = (err, req, res, next) => {
         const message = Object.values(err.errors).map(val => val.message)
         error = new ErrorResponse(message, 400)
     }
-
 
     res.status(error.statusCode || 500).json({
         success: false,
